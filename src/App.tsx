@@ -18,14 +18,14 @@ const Button = styled.button`
   justify-content: center;
 `
 
-type SquareValue = 'X' | 'O' | null;
+export type SquareValue = 'X' | 'O' | null | 'empate';
 
 interface SquareProps {
     value: SquareValue;
     onSquareClick: () => void;
 }
 
-function Square({ value, onSquareClick }: SquareProps) {
+export function Square({ value, onSquareClick }: SquareProps) {
     return (
         <Button className="square" onClick={onSquareClick}>
             {value}
@@ -33,7 +33,7 @@ function Square({ value, onSquareClick }: SquareProps) {
     );
 }
 
-interface BoardProps {
+ interface BoardProps {
     xIsNext: boolean;
     squares: SquareValue[];
     onPlay: (squares: SquareValue[]) => void;
@@ -43,7 +43,7 @@ const Row = styled.div`
   display: flex;
 `
 
-function Board({ xIsNext, squares, onPlay }: BoardProps) {
+export function Board({ xIsNext, squares, onPlay }: BoardProps) {
     function handleClick(i: number) {
         if (calculateWinner(squares) || squares[i]) {
             return;
@@ -135,7 +135,7 @@ export default function Game() {
     );
 }
 
-function calculateWinner(squares: SquareValue[], currentMove: number): SquareValue {
+export function calculateWinner(squares: SquareValue[]): SquareValue | 'empate' {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
